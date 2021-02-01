@@ -1,5 +1,5 @@
 //Усложнённое задание
-let lang = prompt('Ваш язык? | Your language?', 'ru');
+const lang = prompt('Ваш язык? | Your language?', 'ru');
 const langArray = {
   'ru': ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
   'en': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -23,7 +23,7 @@ switch (lang) {
 const result = (lang === 'ru') ? langArray.ru : langArray.en;
 console.log(result);
 
-let namePerson = prompt('Ваше имя?');
+const namePerson = prompt('Ваше имя?');
 const resultName = (namePerson === 'Артём') ? 'Директор' :
   (namePerson === 'Артем') ? 'Директор' :
   (namePerson === 'Максим') ? 'Преподаватель' : 'Студент';
