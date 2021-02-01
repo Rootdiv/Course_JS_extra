@@ -1,7 +1,30 @@
 //Усложнённое задание
-'use strict';
-const num = 266219;
-const numArr = num.toString().split('');
-const result = numArr.map(Number).reduce((res, current) => res * current, 1);
-const degree = result ** 3;
-console.log(degree.toString().slice(0, 2));
+let lang = prompt('Ваш язык? | Your language?', 'ru');
+const langArray = {
+  'ru': ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+  'en': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+};
+
+if (lang === 'ru') console.log(langArray.ru);
+else if (lang === 'en') console.log(langArray.en);
+else console.log('Your language is undefined');
+
+switch (lang) {
+  case 'ru':
+    console.log(langArray.ru);
+    break;
+  case 'en':
+    console.log(langArray.en);
+    break;
+  default:
+    console.log('Your language is undefined');
+}
+
+const result = (lang === 'ru') ? langArray.ru : langArray.en;
+console.log(result);
+
+let namePerson = prompt('Ваше имя?');
+const resultName = (namePerson === 'Артём') ? 'Директор' :
+  (namePerson === 'Артем') ? 'Директор' :
+  (namePerson === 'Максим') ? 'Преподаватель' : 'Студент';
+console.log(resultName);
