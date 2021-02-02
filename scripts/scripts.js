@@ -1,7 +1,6 @@
 //Усложнённое задание
 const lang = prompt('Ваш язык? | Your language?', 'ru');
-let langArray = {};
-langArray = {
+const langArray = {
   'ru': ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
   'en': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 };
