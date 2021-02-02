@@ -1,13 +1,18 @@
 //Усложнённое задание
 const lang = prompt('Ваш язык? | Your language?', 'ru');
-const langArray = {
+let langArray = {};
+langArray = {
   'ru': ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
   'en': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 };
 
-if (lang === 'ru') console.log(langArray.ru);
-else if (lang === 'en') console.log(langArray.en);
-else console.log('Your language is undefined');
+if (lang === 'ru') {
+  console.log(langArray.ru);
+} else if (lang === 'en') {
+  console.log(langArray.en);
+} else {
+  console.log('Your language is undefined');
+}
 
 switch (lang) {
   case 'ru':
@@ -20,8 +25,7 @@ switch (lang) {
     console.log('Your language is undefined');
 }
 
-const result = (lang === 'ru') ? langArray.ru : langArray.en;
-console.log(result);
+console.log(langArray[lang]);
 
 const namePerson = prompt('Ваше имя?');
 const resultName = (namePerson === 'Артём') ? 'Директор' :
