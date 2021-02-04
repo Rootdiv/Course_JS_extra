@@ -1,20 +1,42 @@
 //Усложнённое задание
 'use strict';
-const arr = ['1565452', '246545', '5115135', '4553135', '254535', '7115532', '463536', ];
-console.log('Выводим начинающееся с цифры 2 или 4');
-arr.filter((item) => {
-  if (item[0] === '2' || item[0] === '4') {
-    console.log(item);
-  }
-});
+const isNumber = function (n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+};
+let gameSet = 10;
+let number = Math.floor(Math.random() * 100) + 1;
 
-console.log('Выводим простые числа от 1 до 100');
-const count = 100;
-nextPrime: for (let i = 2; i <= count; i++) {
-  for (let j = 2; j < i; j++) {
-    if (i % j === 0) {
-      continue nextPrime;
+function startGame() {
+  const numberInput = +prompt('Угадай число от 1 до 100');
+
+  function game(num) {
+    gameSet -= 1;
+    if (gameSet === 0) {
+      if (confirm('Попытки закончились, хотите сыграть еще?')) {
+        gameSet = 10;
+        number = Math.floor(Math.random() * 100) + 1;
+        console.log(number);
+        startGame();
+      } else {
+        return alert('Игра окончена');
+      }
+    }
+    if (!isNumber(num) && num !== 0) {
+      alert('Введите число!');
+      startGame();
+    } else if (num < number && num !== 0) {
+      alert('Загаданное число больше, осталось попыток ' + gameSet);
+      startGame();
+    } else if (num > number) {
+      alert('Загаданное число меньше, осталось попыток ' + gameSet);
+      startGame();
+    } else if (num === number) {
+      return alert('Поздравляю, Вы угадали!!!');
+    } else {
+      return alert('Игра окончена');
     }
   }
-  console.log('Делители числа ' + i + ': 1 и ' + i);
+  return game(numberInput);
 }
+console.log(number);
+startGame();
