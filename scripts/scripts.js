@@ -8,11 +8,11 @@ function strChange(str) {
   if (typeof str === 'string' && str !== '') {
     if (!strReg.test(str)) {
       return notStr;
-    } else if (str.length > 30) {
-      return str.substring(0, 30).concat('...');
-    } else {
+    } else if (str.length <= 30) {
       console.log('"' + str + '"');
       return '"' + str.trim() + '"';
+    } else {
+      return str.substring(0, 30).concat('...');
     }
   }
   return notStr;
