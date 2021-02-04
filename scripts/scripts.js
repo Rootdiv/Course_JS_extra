@@ -2,7 +2,7 @@
 'use strict';
 const arr = ['1565452', '246545', '5115135', '4553135', '254535', '7115532', '463536', ];
 console.log('Выводим начинающееся с цифры 2 или 4');
-arr.forEach((item) => {
+arr.filter((item) => {
   if (item[0] === '2' || item[0] === '4') {
     console.log(item);
   }
