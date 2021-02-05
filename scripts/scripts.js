@@ -31,9 +31,11 @@ function startGame() {
       alert('Загаданное число меньше, осталось попыток ' + gameSet);
       startGame();
     } else if (num === number) {
-      return alert('Поздравляю, Вы угадали!!!');
+      alert('Поздравляю, Вы угадали!!!');
+      return false;
     } else {
-      return alert('Игра окончена');
+      alert('Игра окончена');
+      return false;
     }
   }
   return game(numberInput);
