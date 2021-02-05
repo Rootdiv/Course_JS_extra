@@ -20,6 +20,7 @@ function startGame() {
       } else {
         return alert('Игра окончена');
       }
+      return true;
     }
     if (num === null) {
       return alert('Игра окончена');
