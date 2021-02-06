@@ -1,46 +1,16 @@
 //Усложнённое задание
 'use strict';
-const isNumber = function (n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-};
-let gameSet = 10;
-let number = Math.floor(Math.random() * 100) + 1;
-
-function startGame() {
-  const numberInput = prompt('Угадай число от 1 до 100');
-
-  function game(num) {
-    gameSet -= 1;
-    if (gameSet === 0) {
-      if (confirm('Попытки закончились, хотите сыграть еще?')) {
-        gameSet = 10;
-        number = Math.floor(Math.random() * 100) + 1;
-        console.log(number);
-        startGame();
-      } else {
-        return alert('Игра окончена');
-      }
-      return true;
-    }
-    if (num === null) {
-      return alert('Игра окончена');
-    } else if (!isNumber(num)) {
-      alert('Введите число!');
-      startGame();
-    } else if (num <= 0 || num > 100) {
-      alert('Введите число в диапазоне от 1 до 100 ');
-      startGame();
-    } else if (num < number) {
-      alert('Загаданное число больше, осталось попыток ' + gameSet);
-      startGame();
-    } else if (num > number) {
-      alert('Загаданное число меньше, осталось попыток ' + gameSet);
-      startGame();
-    } else if (Number(num) === number) {
-      return alert('Поздравляю, Вы угадали!!!');
-    }
+const week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+const currentWeek = new Date().getDay() - 1;
+const elem = document.querySelector('#lesson7');
+week.forEach((item, i) => {
+  const day = document.createElement('div');
+  day.textContent = week[i];
+  if (i === currentWeek) {
+    day.classList.add('bold');
   }
-  return game(numberInput);
-}
-console.log(number);
-startGame();
+  if (item === 'Суббота' || item === 'Воскресенье') {
+    day.classList.add('italic');
+  }
+  elem.appendChild(day);
+});
