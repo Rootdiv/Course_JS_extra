@@ -7,21 +7,20 @@ let gameSet = 10;
 let number = Math.floor(Math.random() * 100) + 1;
 
 function startGame() {
+  if (gameSet === 0) {
+    if (confirm('Попытки закончились, хотите сыграть еще?')) {
+      gameSet = 10;
+      number = Math.floor(Math.random() * 100) + 1;
+      console.log(number);
+      startGame();
+    } else {
+      return alert('Игра окончена');
+    }
+    return true;
+  }
   const numberInput = prompt('Угадай число от 1 до 100');
 
   function game(num) {
-    gameSet -= 1;
-    if (gameSet === 0) {
-      if (confirm('Попытки закончились, хотите сыграть еще?')) {
-        gameSet = 10;
-        number = Math.floor(Math.random() * 100) + 1;
-        console.log(number);
-        startGame();
-      } else {
-        return alert('Игра окончена');
-      }
-      return true;
-    }
     if (num === null) {
       return alert('Игра окончена');
     } else if (!isNumber(num)) {
@@ -31,9 +30,11 @@ function startGame() {
       alert('Введите число в диапазоне от 1 до 100 ');
       startGame();
     } else if (num < number) {
+      gameSet--;
       alert('Загаданное число больше, осталось попыток ' + gameSet);
       startGame();
     } else if (num > number) {
+      gameSet--;
       alert('Загаданное число меньше, осталось попыток ' + gameSet);
       startGame();
     } else if (Number(num) === number) {
