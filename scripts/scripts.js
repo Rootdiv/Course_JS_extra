@@ -85,7 +85,7 @@ const second = seconds(date.getHours());
 function newDate() {
   const time = new Date();
   fullDate.textContent = `Сегодня ${curWeek}, ${twoDigits(time.getDate())} ${month} ${time.getFullYear()} года 
-  ${time.getHours()} ${hour} ${time.getMinutes()} ${minute} ${time.getSeconds()} ${second}`;
+  ${twoDigits(time.getHours())} ${hour} ${twoDigits(time.getMinutes())} ${minute} ${twoDigits(time.getSeconds())} ${second}`;
 }
 newDate();
 setInterval(function() {
@@ -94,7 +94,8 @@ setInterval(function() {
 
 function currentDate() {
   const time = new Date();
-  shortDate.textContent = time.toLocaleDateString() + ' - ' + time.toLocaleTimeString();
+  shortDate.textContent = `${twoDigits(time.getDate())}.${twoDigits(time.getMonth()+1)}.${time.getFullYear()} - 
+  ${twoDigits(time.getHours())}:${twoDigits(time.getMinutes())}:${twoDigits(time.getSeconds())}`;
 }
 currentDate();
 setInterval(function() {
