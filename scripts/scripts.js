@@ -195,11 +195,14 @@ validNum.forEach(function(item) {
   });
 });
 
-calculate.addEventListener('click', function() {
+document.querySelector('.calc').addEventListener('mouseover', function() {
   if (salaryAmount.value === '') {
-    return false;
+    calculate.setAttribute('disabled', '');
   } else {
-    appData.start();
+    calculate.removeAttribute('disabled');
+    calculate.addEventListener('click', function() {
+      appData.start();
+    });
   }
 });
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
