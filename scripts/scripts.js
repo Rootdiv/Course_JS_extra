@@ -3,11 +3,6 @@
 const isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
-//Проверяем содержит ли строка только цифры или она пустая
-const isStr = function(str) {
-  const strReg = /^[?!,.а-яё\s]+$/gi;
-  return strReg.test(str);
-};
 
 const calculate = document.getElementById('start');
 const incomePlus = document.getElementsByTagName('button')[0];
@@ -180,18 +175,14 @@ const appData = {
 const validStr = document.querySelectorAll('[placeholder="Наименование"]');
 validStr.forEach(function(item) {
   item.addEventListener('input', function() {
-    if (!isStr(item.value)) {
-      item.value = '';
-    }
+    item.value = item.value.replace(/[^а-яё\s!?:,.]/gi, '');
   });
 });
 
 const validNum = document.querySelectorAll('[placeholder="Сумма"]');
 validNum.forEach(function(item) {
   item.addEventListener('input', function() {
-    if (!isNumber(item.value)) {
-      item.value = '';
-    }
+    item.value = item.value.replace(/[^\d]/g, '');
   });
 });
 
