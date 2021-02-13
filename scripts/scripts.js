@@ -1,54 +1,6 @@
 //Усложнённое задание
 'use strict';
 
-function weekString(week) {
-  switch (week) {
-    case 0:
-      return 'Понедельник';
-    case 1:
-      return 'Вторник';
-    case 2:
-      return 'Среда';
-    case 3:
-      return 'Четверг';
-    case 4:
-      return 'Пятница';
-    case 5:
-      return 'Суббота';
-    case 6:
-      return 'Воскресенье';
-  }
-}
-
-function monthString(month) {
-  switch (month) {
-    case 0:
-      return 'января';
-    case 1:
-      return 'февраля';
-    case 2:
-      return 'марта';
-    case 3:
-      return 'апреля';
-    case 4:
-      return 'мая';
-    case 5:
-      return 'июня';
-    case 6:
-      return 'июля';
-    case 7:
-      return 'августа';
-    case 8:
-      return 'сентября';
-    case 9:
-      return 'октября';
-    case 10:
-      return 'ноября';
-    case 11:
-      return 'декабря';
-  }
-}
-
 function twoDigits(num) {
   return ('0' + num).slice(-2);
 }
@@ -71,33 +23,31 @@ function seconds(num) {
 }
 
 const date = new Date();
-const shortDate = document.getElementById('short-date');
-const fullDate = document.getElementById('full-date');
-const week = new Date().toLocaleString('ru', {
-  weekday: 'long'
-});
-const curWeek = week.charAt(0).toUpperCase() + week.slice(1);
-const month = monthString(date.getMonth());
+const shortTextDate = document.getElementById('short-date');
+const fullTextDate = document.getElementById('full-date');
+const day = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+const month = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 const hour = hours(date.getHours());
 const minute = minutes(date.getHours());
 const second = seconds(date.getHours());
 
-function newDate() {
+function fullDate() {
   const time = new Date();
-  fullDate.textContent = `Сегодня ${curWeek}, ${twoDigits(time.getDate())} ${month} ${time.getFullYear()} года 
+  fullTextDate.textContent = `Сегодня ${day[time.getDay()-1]} ${time.getDate()} ${month[time.getMonth()]} ${time.getFullYear()} года 
   ${twoDigits(time.getHours())} ${hour} ${twoDigits(time.getMinutes())} ${minute} ${twoDigits(time.getSeconds())} ${second}`;
 }
-newDate();
+
+fullDate();
 setInterval(function() {
-  return newDate();
+  fullDate();
 }, 1000);
 
-function currentDate() {
+function shortDate() {
   const time = new Date();
-  shortDate.textContent = `${twoDigits(time.getDate())}.${twoDigits(time.getMonth()+1)}.${time.getFullYear()} - 
+  shortTextDate.textContent = `${twoDigits(time.getDate())}.${twoDigits(time.getMonth()+1)}.${time.getFullYear()} - 
   ${twoDigits(time.getHours())}:${twoDigits(time.getMinutes())}:${twoDigits(time.getSeconds())}`;
 }
-currentDate();
+shortDate();
 setInterval(function() {
-  return currentDate();
+  shortDate();
 }, 1000);
