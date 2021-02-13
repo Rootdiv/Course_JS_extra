@@ -24,7 +24,7 @@ function seconds(num) {
 
 const date = new Date();
 const shortTextDate = document.getElementById('short-date');
-const fullTextDate = document.getElementById('full-date');
+const longDate = document.getElementById('full-date');
 const day = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
 const month = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 const hour = hours(date.getHours());
@@ -33,7 +33,7 @@ const second = seconds(date.getHours());
 
 function fullDate() {
   const time = new Date();
-  fullTextDate.textContent = `Сегодня ${day[time.getDay()-1]} ${time.getDate()} ${month[time.getMonth()]} ${time.getFullYear()} года 
+  longDate.textContent = `Сегодня ${day[time.getDay()-1]} ${twoDigits(time.getDate())} ${month[time.getMonth()]} ${time.getFullYear()} года 
   ${twoDigits(time.getHours())} ${hour} ${twoDigits(time.getMinutes())} ${minute} ${twoDigits(time.getSeconds())} ${second}`;
 }
 
