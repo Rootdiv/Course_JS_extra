@@ -101,7 +101,7 @@ const appData = {
     const cloneIncomeItem = incomeItems[0].cloneNode(true);
     const clone = incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
     incomeItems = document.querySelectorAll('.income-items');
-    for (let i = 1; i <= expensesItems.length; i++) {
+    for (let i = 1; i <= incomeItems.length; i++) {
       clone.querySelector('.income-title').value = '';
       clone.querySelector('.income-amount').value = '';
     }
