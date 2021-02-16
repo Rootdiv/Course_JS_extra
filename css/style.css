@@ -3,23 +3,6 @@
   outline: none;
 }
 
-body {
-  padding: 0;
-  margin: 0;
-  background-color: green;
-}
-
 div {
-  padding-top: 25px;
-  text-align: center;
-  color: white;
-}
-
-button {
-  font-size: 20px;
-  margin: 0 auto;
-  padding: 15px;
-  background-color: white;
-  border: none;
-  border-radius: 5px;
+  padding: 5px;
 }
