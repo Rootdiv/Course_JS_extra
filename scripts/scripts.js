@@ -11,8 +11,9 @@ function DomElement(selector, height, width, bg, fontSize, text) {
   this.position = 'absolute';
 }
 
-const elem = document.createElement('div');
+let elem;
 DomElement.prototype.createElem = function() {
+  elem = document.createElement('div');
   const one = this.selector[0];
   if (one === '.') {
     elem.className = this.selector.substring(1);
