@@ -14,8 +14,6 @@ const incomePlus = document.getElementsByTagName('button')[0];
 const expensesPlus = document.getElementsByTagName('button')[1];
 const deposit = document.querySelector('#deposit-check');
 const additionalIncomeItem = document.querySelectorAll('.additional_income-item'); //Возможный доход
-const additionalIncome1 = document.querySelectorAll('.additional_income-item')[0];
-const additionalIncome2 = document.querySelectorAll('.additional_income-item')[1];
 const budgetMonthValue = document.getElementsByClassName('budget_month-value')[0];
 const budgetDayValue = document.getElementsByClassName('budget_day-value')[0];
 const expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0];
@@ -223,8 +221,4 @@ validNum.forEach(item => {
   item.addEventListener('input', function() {
     item.value = item.value.replace(/[^\d]/g, '');
   });
-});
-
-periodSelect.addEventListener('input', () => {
-  periodAmount.textContent = periodSelect.value;
 });
