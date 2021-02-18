@@ -103,11 +103,10 @@ class AppData {
   }
   //Возможный доход и Возможные расходы
   getAddExpInc() {
-    const addExpInc = item => {
-      return item.map(elem => elem.trim()).filter(elem => elem !== '');
-    };
-    this.addExpenses = addExpInc(additionalExpensesItem.value.split(','));
-    this.addIncome = addExpInc([additionalIncomeItem[0].value, additionalIncomeItem[1].value]);
+    const addExpenses = additionalExpensesItem.value.split(',');
+    this.addExpenses = addExpenses.map(elem => elem.trim()).filter(elem => elem !== '');
+    const addIncomeArray = [...additionalIncomeItem];
+    this.addIncome = addIncomeArray.map(elem => elem.value.trim()).filter(elem => elem.value !== '');
   }
   //Сумма расходов за месяц
   getExpensesMonth() {
