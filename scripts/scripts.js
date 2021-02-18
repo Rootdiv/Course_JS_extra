@@ -168,13 +168,13 @@ class AppData {
     for (let item of inputReset) {
       item.value = '';
     }
-    const addIncExpItems = item => {
+    const remIncExpBlock = item => {
       for (let i = 1; i < item.length; i++) {
         item[i].remove();
       }
     };
-    addIncExpItems(document.querySelectorAll('.income-items'));
-    addIncExpItems(document.querySelectorAll('.expenses-items'));
+    remIncExpBlock(document.querySelectorAll('.income-items'));
+    remIncExpBlock(document.querySelectorAll('.expenses-items'));
     expensesPlus.style.display = 'block';
     incomePlus.style.display = 'block';
     calculate.removeAttribute('style');
