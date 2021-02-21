@@ -112,7 +112,7 @@ class AppData {
     const addExpenses = additionalExpensesItem.value.split(',');
     this.addExpenses = addExpenses.map(elem => elem.trim()).filter(elem => elem !== '');
     const addIncomeArray = [...additionalIncomeItem];
-    this.addIncome = addIncomeArray.map(elem => elem.value.trim()).filter(elem => elem.value !== '');
+    this.addIncome = addIncomeArray.map(elem => elem.value.trim()).filter(elem => elem !== '');
   }
   //Сумма расходов за месяц
   getExpensesMonth() {
@@ -205,6 +205,12 @@ class AppData {
     calculate.style.display = 'none';
     cancel.style.display = 'block';
   }
+  remIncExpBlock(element) {
+    const elemLength = element.length;
+    for (let i = 1; i < elemLength; i++) {
+      element[i].remove();
+    }
+  }
   reset() {
     this.inputToggle();
     localStorage.removeItem('appDataSaved');
@@ -213,13 +219,8 @@ class AppData {
       item.value = '';
     }
     depositPercent.value = '';
-    const remIncExpBlock = item => {
-      for (let i = 1; i < item.length; i++) {
-        item[i].remove();
-      }
-    };
-    remIncExpBlock(document.querySelectorAll('.income-items'));
-    remIncExpBlock(document.querySelectorAll('.expenses-items'));
+    this.remIncExpBlock(document.querySelectorAll('.income-items'));
+    this.remIncExpBlock(document.querySelectorAll('.expenses-items'));
     expensesPlus.style.display = 'block';
     incomePlus.style.display = 'block';
     deposit.checked = false;
