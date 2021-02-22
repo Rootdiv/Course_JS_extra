@@ -1,6 +1,6 @@
 # Course_JS
 Курс JavaScript от Glo Academy
 <div>
-  Урок &#8470;16<br>
-  Доп урок ES6+
-</div> 
+  Урок &#8470;18<br>
+  Скрипты и время выполнения
+</div>
