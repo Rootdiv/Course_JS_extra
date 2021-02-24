@@ -104,7 +104,6 @@ window.addEventListener('DOMContentLoaded', () => {
           animation = requestAnimationFrame(scrollRun);
           count += 15;
           if (count < scrollBlock) {
-            console.log('scrollBlock: ', scrollBlock);
             document.documentElement.scrollTop = count;
           } else {
             cancelAnimationFrame(animation);
@@ -113,8 +112,7 @@ window.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(scrollRun);
       }
     };
-    const menu = document.querySelector('menu');
-    menu.addEventListener('click', (event) => {
+    document.body.addEventListener('click', (event) => {
       event.preventDefault();
       scroll(event);
     });
