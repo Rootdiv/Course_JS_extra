@@ -101,7 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if (target) {
         const link = target.getAttribute('href').substring(1);
         const scrollBlock = document.getElementById(link).offsetTop;
-        let animation, count = 0;
+        let animation, count = window.pageYOffset; //Позиция начала прокрутки
         const scrollRun = () => {
           animation = requestAnimationFrame(scrollRun);
           count += 15;
