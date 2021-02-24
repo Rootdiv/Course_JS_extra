@@ -94,6 +94,8 @@ window.addEventListener('DOMContentLoaded', () => {
   toggleModal();
   //Плавная прокрутка
   const animateScroll = () => {
+    const menu = document.querySelector('menu');
+    const btnMouse = document.querySelector('main a');
     const scroll = (event) => {
       let target = event.target.closest('[href^="#"]');
       if (target) {
@@ -112,10 +114,10 @@ window.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(scrollRun);
       }
     };
-    document.body.addEventListener('click', (event) => {
+    [menu, btnMouse].map(elem => elem.addEventListener('click', (event) => {
       event.preventDefault();
       scroll(event);
-    });
+    }));
   };
   animateScroll();
 });
