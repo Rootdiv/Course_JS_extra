@@ -1,170 +1,142 @@
-//Усложнённое задание
-window.addEventListener('DOMContentLoaded', () => {
-  'use strict';
-  //Таймер
-  const countTimer = (deadline) => {
-    const timerHours = document.getElementById('timer-hours');
-    const timerMinutes = document.getElementById('timer-minutes');
-    const timerSeconds = document.getElementById('timer-seconds');
+//Обязательное задание
+'use strict';
 
-    const twoDigits = (num) => {
-      return ('0' + num).slice(-2);
-    };
+class Todo {
+  constructor(form, input, todoContainer, todoList, todoCompleted) {
+    this.form = document.querySelector(form);
+    this.input = document.querySelector(input);
+    this.todoContainer = document.querySelector(todoContainer);
+    this.todoList = document.querySelector(todoList);
+    this.todoCompleted = document.querySelector(todoCompleted);
+    this.todoData = new Map(JSON.parse(localStorage.getItem('todoList')));
+  }
 
-    const getTimeRemaining = () => {
-      const dateStop = new Date(deadline).getTime();
-      const dateNow = new Date().getTime();
-      const fullStop = dateNow > dateStop ? true : false;
-      const timeRemaining = (dateStop - dateNow) / 1000;
-      const seconds = twoDigits(Math.floor(timeRemaining % 60));
-      const minutes = twoDigits(Math.floor((timeRemaining / 60) % 60));
-      const hours = twoDigits(Math.floor(timeRemaining / 60 / 60));
-      return {
-        timeRemaining,
-        hours,
-        minutes,
-        seconds,
-        fullStop
+  addToStorage() {
+    localStorage.setItem('todoList', JSON.stringify([...this.todoData]));
+  }
+
+  addTodo(event) {
+    if (this.input.value.trim()) {
+      event.preventDefault();
+      const newTodo = {
+        value: this.input.value,
+        completed: false,
+        key: this.generateKey()
       };
-    };
-
-    const updateClock = () => {
-      const timer = getTimeRemaining();
-      timerHours.textContent = timer.hours;
-      timerMinutes.textContent = timer.minutes;
-      timerSeconds.textContent = timer.seconds;
-    };
-    if (getTimeRemaining().timeRemaining > 0) {
-      updateClock();
-      const timerId = setInterval(() => {
-        if (getTimeRemaining().fullStop) {
-          clearInterval(timerId);
-        } else {
-          updateClock();
-        }
-      }, 1000);
+      this.todoData.set(newTodo.key, newTodo);
+      this.render();
+    } else {
+      event.preventDefault();
+      alert('Пустое дело добавить нельзя!');
     }
-  };
-  countTimer('25 February 2021');
-  //Меню
-  const toggleMenu = () => {
-    const menu = document.querySelector('menu');
-    const handlerMenu = () => {
-      menu.classList.toggle('active-menu');
-    };
-    document.body.addEventListener('click', (event) => {
-      let target = event.target;
-      if (target.closest('.menu')) {
-        handlerMenu();
-      } else if (target.classList.contains('close-btn')) {
-        handlerMenu();
-      } else {
-        target = target.matches('[href^="#"]');
-        if (target) {
-          handlerMenu();
-        } else if (target && !target.closest('.menu')) {
-          menu.classList.remove('active-menu');
-        }
-      }
-    });
-  };
-  toggleMenu();
-  //Модальное окно
-  const toggleModal = () => {
-    const popUp = document.querySelector('.popup');
-    const popUpBtn = document.querySelectorAll('.popup-btn');
-    popUp.style.display = 'block';
-    popUp.style.transform = 'translateX(100%)';
-    let animation, count = 100;
+  }
+
+  render() {
+    this.todoList.textContent = '';
+    this.todoCompleted.textContent = '';
+    this.todoData.forEach(this.createItem, this);
+    this.addToStorage();
+  }
+
+  createItem(todo) {
+    const li = document.createElement('li');
+    li.classList.add('todo-item');
+    li.setAttribute('data-id', todo.key);
+    li.insertAdjacentHTML('beforeend', `
+      <span class="text-todo">${todo.value}</span>
+      <div class="todo-buttons">
+      <button class="todo-edit"></button>
+      <button class="todo-remove"></button>
+      <button class="todo-complete"></button>
+      </div>
+    `);
+    if (todo.completed) {
+      this.todoCompleted.append(li);
+    } else {
+      this.todoList.append(li);
+    }
+    this.input.value = '';
+  }
+
+  generateKey() {
+    return Math.random().toString(32).substring(2, 9) + (+new Date()).toString(32);
+  }
+
+  animate(elem) {
+    let animation, count = 1;
     const transform = () => {
       animation = requestAnimationFrame(transform);
-      count--;
+      count -= 0.02;
       if (count >= 0) {
-        popUp.style.transform = `translateX(${count}%)`;
+        elem.style.opacity = count;
       } else {
         cancelAnimationFrame(animation);
+        this.render();
       }
     };
-    popUpBtn.forEach((elem) => {
-      elem.addEventListener('click', () => {
-        if (document.body.clientWidth > 768) {
-          requestAnimationFrame(transform);
-        } else {
-          popUp.style.transform = 'translateX(0)';
-        }
-      });
-    });
-    popUp.addEventListener('click', (event) => {
-      let target = event.target;
-      if (target.classList.contains('popup-close')) {
-        count = 100;
-        popUp.style.transform = 'translateX(100%)';
-      } else {
-        target = target.closest('.popup-content');
-        if (!target) {
-          count = 100;
-          popUp.style.transform = 'translateX(100%)';
-        }
+    requestAnimationFrame(transform);
+  }
+
+  deleteItem(elem) {
+    const key = elem.getAttribute('data-id');
+    this.todoData.delete(key);
+    this.animate(elem);
+  }
+
+  completedItem(elem) {
+    this.todoData.forEach((value, key) => {
+      if (key === elem.getAttribute('data-id') && !value.completed) {
+        value.completed = true;
+      } else if (key === elem.getAttribute('data-id') && value.completed) {
+        value.completed = false;
       }
     });
-  };
-  toggleModal();
-  //Плавная прокрутка
-  const animateScroll = () => {
-    const menu = document.querySelector('menu');
-    const btnMouse = document.querySelector('main a');
-    const scroll = (event) => {
-      let target = event.target.closest('[href^="#"]');
-      //Проверяем что target не null и не кнопка закрытия меню
-      if (target && !target.matches('[href="#close"]')) {
-        const link = target.getAttribute('href').substring(1);
-        const scrollBlock = document.getElementById(link).offsetTop;
-        let animation, count = window.pageYOffset; //Позиция начала прокрутки
-        const scrollRun = () => {
-          animation = requestAnimationFrame(scrollRun);
-          count += 15;
-          if (count < scrollBlock) {
-            document.documentElement.scrollTop = count;
-          } else {
-            cancelAnimationFrame(animation);
-          }
-        };
-        requestAnimationFrame(scrollRun);
-      }
-    };
-    [menu, btnMouse].map(elem => elem.addEventListener('click', (event) => {
-      event.preventDefault();
-      scroll(event);
-    }));
-  };
-  animateScroll();
-  //Табы
-  const tabs = () => {
-    const tabHeader = document.querySelector('.service-header');
-    const tab = document.querySelectorAll('.service-header-tab');
-    const tabContent = document.querySelectorAll('.service-tab');
-    const toggleTabContent = (index) => {
-      for (let i = 0; i < tabContent.length; i++) {
-        if (index === i) {
-          tab[i].classList.add('active');
-          tabContent[i].classList.remove('d-none');
-        } else {
-          tab[i].classList.remove('active');
-          tabContent[i].classList.add('d-none');
-        }
-      }
-    };
-    tabHeader.addEventListener('click', (event) => {
-      let target = event.target;
-      target = target.closest('.service-header-tab');
-      if (target) {
-        tab.forEach((item, i) => {
-          if (item === target) {
-            toggleTabContent(i);
-          }
-        });
+    this.animate(elem);
+  }
+
+  saveItem(elem) {
+    const editElem = elem.querySelector('.text-todo');
+    this.todoData.forEach((value, key) => {
+      if (key === elem.getAttribute('data-id')) {
+        value.value = editElem.textContent;
       }
     });
-  };
-  tabs();
-});
+    this.render();
+  }
+
+  editItem(target) {
+    let elem;
+    if (target.closest('.todo-list')) {
+      elem = target.closest('.todo-item');
+    } else {
+      return false;
+    }
+    const editElem = elem.querySelector('.text-todo');
+    if (editElem.hasAttribute('contenteditable')) {
+      this.saveItem(elem);
+    } else {
+      editElem.setAttribute('contenteditable', true);
+    }
+  }
+
+  handler(event) {
+    const target = event.target;
+    if (target.matches('.todo-remove')) {
+      const elem = target.closest('.todo-item');
+      this.deleteItem(elem);
+    } else if (target.matches('.todo-complete')) {
+      const elem = target.closest('.todo-item');
+      this.completedItem(elem);
+    } else if (target.matches('.todo-edit')) {
+      this.editItem(target);
+    }
+  }
+
+  init() {
+    this.form.addEventListener('submit', this.addTodo.bind(this));
+    this.todoContainer.addEventListener('click', this.handler.bind(this));
+    this.render();
+  }
+}
+const todo = new Todo('.todo-control', '.header-input', '.todo-container', '.todo-list', '.todo-completed');
+todo.init();

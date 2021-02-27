@@ -1,6 +1,6 @@
 # Course_JS
 Курс JavaScript от Glo Academy
 <div>
-  Урок &#8470;20<br>
-  Делегирование
+  Урок &#8470;22<br>
+  Практика ООП
 </div>
