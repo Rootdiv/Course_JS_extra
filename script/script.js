@@ -1,4 +1,4 @@
-//Обязательное задание
+//Усложнённое задание
 'use strict';
 
 class Todo {
@@ -10,11 +10,9 @@ class Todo {
     this.todoCompleted = document.querySelector(todoCompleted);
     this.todoData = new Map(JSON.parse(localStorage.getItem('todoList')));
   }
-
   addToStorage() {
     localStorage.setItem('todoList', JSON.stringify([...this.todoData]));
   }
-
   addTodo(event) {
     if (this.input.value.trim()) {
       event.preventDefault();
@@ -30,14 +28,12 @@ class Todo {
       alert('Пустое дело добавить нельзя!');
     }
   }
-
   render() {
     this.todoList.textContent = '';
     this.todoCompleted.textContent = '';
     this.todoData.forEach(this.createItem, this);
     this.addToStorage();
   }
-
   createItem(todo) {
     const li = document.createElement('li');
     li.classList.add('todo-item');
@@ -57,11 +53,9 @@ class Todo {
     }
     this.input.value = '';
   }
-
   generateKey() {
     return Math.random().toString(32).substring(2, 9) + (+new Date()).toString(32);
   }
-
   animate(elem) {
     let animation, count = 1;
     const transform = () => {
@@ -76,13 +70,11 @@ class Todo {
     };
     requestAnimationFrame(transform);
   }
-
   deleteItem(elem) {
     const key = elem.getAttribute('data-id');
     this.todoData.delete(key);
     this.animate(elem);
   }
-
   completedItem(elem) {
     this.todoData.forEach((value, key) => {
       if (key === elem.getAttribute('data-id') && !value.completed) {
@@ -93,7 +85,6 @@ class Todo {
     });
     this.animate(elem);
   }
-
   saveItem(elem) {
     const editElem = elem.querySelector('.text-todo');
     this.todoData.forEach((value, key) => {
@@ -103,7 +94,6 @@ class Todo {
     });
     this.render();
   }
-
   editItem(target) {
     let elem;
     if (target.closest('.todo-list')) {
@@ -118,7 +108,6 @@ class Todo {
       editElem.setAttribute('contenteditable', true);
     }
   }
-
   handler(event) {
     const target = event.target;
     if (target.matches('.todo-remove')) {
@@ -131,7 +120,6 @@ class Todo {
       this.editItem(target);
     }
   }
-
   init() {
     this.form.addEventListener('submit', this.addTodo.bind(this));
     this.todoContainer.addEventListener('click', this.handler.bind(this));
