@@ -254,12 +254,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const calcCount = document.querySelector('.calc-count');
     const calcDay = document.querySelector('.calc-day');
     const totalValue = document.getElementById('total');
-    let countId; //Переменная для анимации итоговой суммы
+    let countId, count = 0; //Переменная для анимации итоговой суммы и счётчика
     const countSum = () => {
       let total = 0,
         countValue = 1,
         dayValue = 1;
-      let count = 0;
       const typeValue = calcType.options[calcType.selectedIndex].value;
       const squareValue = +calcSquare.value;
       if (calcCount.value > 1) {
@@ -272,12 +271,18 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       if (typeValue && squareValue) {
         total = price * typeValue * squareValue * countValue * dayValue;
+        console.log('total: ', total);
         //Запуск анимации итоговой суммы
         countId = setInterval(() => {
-          if (count === total) {
+          if (count >= total) {
             clearInterval(countId);
+            totalValue.textContent = total;
           } else {
-            count++;
+            if (squareValue <= 1000) {
+              count += 500;
+            } else {
+              count += 5000;
+            }
             totalValue.textContent = count;
           }
         }, 1);
@@ -288,8 +293,9 @@ window.addEventListener('DOMContentLoaded', () => {
     calcBlock.addEventListener('change', (event) => {
       const target = event.target;
       if (target.matches('select') || target.matches('input')) {
-        //Сброс анимации итоговой суммы, если значения калькулятора изменились 
+        //Сброс анимации итоговой суммы и счётчика, если значения калькулятора изменились 
         clearInterval(countId);
+        count = 0;
         countSum();
       }
     });
