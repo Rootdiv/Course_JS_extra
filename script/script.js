@@ -271,21 +271,17 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       if (typeValue && squareValue) {
         total = price * typeValue * squareValue * countValue * dayValue;
-        console.log('total: ', total);
         //Запуск анимации итоговой суммы
+        const step = Math.round(total / 100 * 24);
         countId = setInterval(() => {
           if (count >= total) {
             clearInterval(countId);
-            totalValue.textContent = total;
+            totalValue.textContent = Math.floor(total);
           } else {
-            if (squareValue <= 1000) {
-              count += 500;
-            } else {
-              count += 5000;
-            }
+            count += step;
             totalValue.textContent = count;
           }
-        }, 1);
+        }, 37);
       } else {
         totalValue.textContent = total;
       }
