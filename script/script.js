@@ -334,7 +334,8 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   validFormName();
   const validFormEmail = () => {
-    const formEmail = document.querySelectorAll('[placeholder="E-mail"]');
+    //Выбираем все поля плейсхолдер которых содержит строку "E-mail"
+    const formEmail = document.querySelectorAll('[placeholder~="E-mail"]');
     formEmail.forEach(item => {
       item.addEventListener('input', () => {
         item.value = item.value.replace(/[^a-z@\-_.!~*']/gi, '');
@@ -346,13 +347,14 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   validFormEmail();
   const validFormPhone = () => {
-    const formPhone = document.querySelectorAll('[placeholder="Номер телефона"]');
+    //Выбираем все поля плейсхолдер которых содержит подстроку "телефон"
+    const formPhone = document.querySelectorAll('[placeholder*="телефон"]');
     formPhone.forEach(item => {
       item.addEventListener('input', () => {
-        item.value = item.value.replace(/[^+\d\-()]/g, '');
+        item.value = item.value.replace(/[^+\d]/g, '');
       });
       item.addEventListener('blur', () => {
-        item.value = item.value.replace(/^[\s-]+|[\s\-\+]{1,}$/g, '').replace(/-+/g, '-');
+        item.value = item.value.replace(/^[\s]+|[\s\+]{1,}$/g, '');
       });
     });
   };
@@ -361,11 +363,62 @@ window.addEventListener('DOMContentLoaded', () => {
   const contacts = () => {
     const message = document.getElementById('form2-message');
     message.addEventListener('input', () => {
-      message.value = message.value.replace(/[^а-яё\s]/gi, '');
+      message.value = message.value.replace(/[^а-яё\d\s\-\?;:,.!]/gi, '');
     });
     message.addEventListener('blur', () => {
       message.value = message.value.trim().replace(/\s+/g, ' ').replace(/-+/g, '-');
     });
   };
   contacts();
+  //send-ajax-form
+  const sendForm = (formId) => {
+    const errorMessage = 'Что-то пошло не так...';
+    const loadMessage = '<img src="./images/loader.svg" alt="Загрузка...">';
+    const successMessage = 'Спасибо! Мы скоро с Вами свяжемся!';
+    const form = document.getElementById(formId);
+    const statusMessage = document.createElement('div');
+    statusMessage.style.cssText = 'font-size: 2rem; color: #ffffff';
+    //Функция отправки данных на сервер и обработки ответа
+    const postData = (body, outputData, errorData) => {
+      const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', () => {
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          outputData();
+        } else {
+          errorData(request.status);
+        }
+      });
+      request.open('POST', './server.php');
+      //request.setRequestHeader('Content-Type', 'multipart/form-data');
+      request.setRequestHeader('Content-Type', 'application/json');
+      //request.send(formData);
+      request.send(JSON.stringify(body));
+    };
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.appendChild(statusMessage);
+      statusMessage.innerHTML = loadMessage;
+      const formData = new FormData(form);
+      form.reset();
+      let body = {};
+      // for (let val of formData.entries()) {
+      //   body[val[0]] = val[1];
+      // }
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+      postData(body, () => {
+        statusMessage.textContent = successMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.error(error);
+      });
+    });
+  };
+  sendForm('form1');
+  sendForm('form2');
+  sendForm('form3');
 });
