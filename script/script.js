@@ -361,7 +361,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const contacts = () => {
     const message = document.getElementById('form2-message');
     message.addEventListener('input', () => {
-      message.value = message.value.replace(/[^а-яё\s]/gi, '');
+      message.value = message.value.replace(/[^а-яё\s\-]/gi, '');
     });
     message.addEventListener('blur', () => {
       message.value = message.value.trim().replace(/\s+/g, ' ').replace(/-+/g, '-');
