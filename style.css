@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+label {
+  font-size: 18px;
+}
+
+#filter {
+  font-size: 16px;
+}
+
+.hero {
+  padding-top: 25px;
+}
+
+.card {
+  display: flex;
+  text-align: left;
+}
+
+.info {
+  font-size: 18px;
+}
+
+img {
+  height: 500px;
+  padding-right: 20px;
+}
