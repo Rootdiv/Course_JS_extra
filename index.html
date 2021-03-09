@@ -7,19 +7,27 @@
     <title>Document</title>
     <style>
       * {
-        outline: none
+        outline: none;
+      }
+
+      .euro {
+        display: none;
       }
     </style>
   </head>
   <body>
-    <select id="cars">
-      <option value="no">Выберите тачку</option>
-      <option value="bmw">bmw</option>
-      <option value="volvo">volvo</option>
-    </select>
-    <div id="output">
-      выбери тачку
+    <div class="select">
+      <label><input type="radio" name="valuta" id="usd" checked>Доллар</label>
+      <label><input type="radio" name="valuta" id="eur">Евро</label>
+      <label><input type="checkbox" name="direction" id="direction">Выбрать для конвертации валюты в рубли</label>
     </div>
+    <div class="convert">
+      <label>Рубль: <input type="text" class="rub-input"></label>
+      <label class="dollar">Доллар: <input type="text" class="usd-input"></label>
+      <label class="euro">Евро: <input type="text" class="eur-input"></label>
+      <button>Конвертировать</button>
+    </div>
+    <div id="output"></div>
     <script src="script.js"></script>
   </body>
 </html>
