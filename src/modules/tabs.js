@@ -1,25 +1,27 @@
 'use strict';
 const tabs = () => {
-  const tabHeader = document.querySelector('.service-header');
-  const tab = document.querySelectorAll('.service-header-tab');
+  const service = document.querySelector('.service');
+  const tabHeader = document.querySelectorAll('.service-header-tab');
   const tabContent = document.querySelectorAll('.service-tab');
   const toggleTabContent = (index) => {
-    for (let i = 0; i < tabContent.length; i++) {
-      if (index === i) {
-        tab[i].classList.add('active');
-        tabContent[i].classList.remove('d-none');
-      } else {
-        tab[i].classList.remove('active');
-        tabContent[i].classList.add('d-none');
+    tabContent.forEach((item, i) => {
+      if (item.classList.contains('d-none') && index === i) {
+        item.classList.remove('d-none');
+      } else if (!item.classList.contains('d-none') && index === i) {
+        item.classList.add('d-none');
       }
-    }
+    });
   };
-  tabHeader.addEventListener('click', (event) => {
+  service.addEventListener('click', (event) => {
     let target = event.target;
     target = target.closest('.service-header-tab');
     if (target) {
-      tab.forEach((item, i) => {
-        if (item === target) {
+      tabHeader.forEach((item, i) => {
+        if (!item.classList.contains('active') && item === target) {
+          item.classList.add('active');
+          toggleTabContent(i);
+        } else if (item.classList.contains('active') && item !== target) {
+          item.classList.remove('active');
           toggleTabContent(i);
         }
       });

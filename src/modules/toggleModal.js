@@ -1,8 +1,9 @@
 'use strict';
 const toggleModal = () => {
+  //Получаем блок содержащий кнопку вызова модального окна
+  const servicePopUpBtn = document.querySelector('.service');
   const popUp = document.querySelector('.popup');
-  const popUpBtn = document.querySelectorAll('.popup-btn');
-  popUp.style.display = 'block';
+  popUp.style.display = 'block'; //Получем модально окно и подключаем стили для анимации
   popUp.style.transform = 'translateX(100%)';
   let animation, count = 100;
   const transform = () => {
@@ -14,14 +15,14 @@ const toggleModal = () => {
       cancelAnimationFrame(animation);
     }
   };
-  popUpBtn.forEach((elem) => {
-    elem.addEventListener('click', () => {
+  servicePopUpBtn.addEventListener('click', (event) => {
+    if (event.target.matches('.popup-btn')) {
       if (document.body.clientWidth > 768) {
         requestAnimationFrame(transform);
       } else {
         popUp.style.transform = 'translateX(0)';
       }
-    });
+    }
   });
   popUp.addEventListener('click', (event) => {
     let target = event.target;

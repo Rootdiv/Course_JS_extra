@@ -34,6 +34,4 @@ validForm();
 //Блок Контакты
 contacts();
 //send-ajax-form
-sendForm('form1');
-sendForm('form2');
-sendForm('form3');
+sendForm();

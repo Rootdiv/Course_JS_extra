@@ -11,12 +11,14 @@ const toggleMenu = () => {
     } else if (target.classList.contains('close-btn')) {
       handlerMenu(); //Закрытие меню по кнопке close
     } else {
-      //Блокируем вызов меню на стрелках слайдера и закрываем при клике на пунктах меню
-      if (target.matches('[href^="#"]') && !target.closest('.portfolio-content')) {
-        handlerMenu();
-      } else if (target && !target.closest('.menu')) {
-        //Закрываем меню при клике мимо или пункта меню
-        menu.classList.remove('active-menu');
+      //Блокируем вызов меню на стрелках слайдера и в футере
+      if (!target.closest('.portfolio-content') && !target.closest('footer')) {
+        if (target.matches('[href^="#"]')) {
+          handlerMenu();
+        } else if (target && !target.closest('.menu')) {
+          //Закрываем меню при клике мимо или пункта меню
+          menu.classList.remove('active-menu');
+        }
       }
     }
   });

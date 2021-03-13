@@ -1,5 +1,6 @@
 //Усложнённое задание
 'use strict';
+
 const animateScroll = () => {
   const menu = document.querySelector('menu');
   const btnMouse = document.querySelector('main a');
@@ -22,10 +23,14 @@ const animateScroll = () => {
       requestAnimationFrame(scrollRun);
     }
   };
-  [menu, btnMouse].map(elem => elem.addEventListener('click', (event) => {
+  menu.addEventListener('click', (event) => {
     event.preventDefault();
     scroll(event);
-  }));
+  });
+  btnMouse.addEventListener('click', (event) => {
+    event.preventDefault();
+    scroll(event);
+  });
 };
 
 export default animateScroll;

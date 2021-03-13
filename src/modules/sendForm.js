@@ -1,9 +1,8 @@
 'use strict';
-const sendForm = (formId) => {
+const sendForm = () => {
   const errorMessage = 'Что-то пошло не так...';
-  const loadMessage = '<img src="./images/loader.svg" alt="Загрузка...">';
+  const loadMessage = 'Загрузка...';
   const successMessage = 'Спасибо! Мы скоро с Вами свяжемся!';
-  const form = document.getElementById(formId);
   const statusMessage = document.createElement('div');
   statusMessage.style.cssText = 'font-size: 2rem; color: #ffffff';
   //Функция отправки данных на сервер и обработки ответа
@@ -14,31 +13,31 @@ const sendForm = (formId) => {
         'Content-Type': 'multipart/form-data'
       },
       body: formData
-      /*headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)*/
     });
   };
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    form.appendChild(statusMessage);
-    statusMessage.innerHTML = loadMessage;
-    const formData = new FormData(form);
-    form.reset();
-    /*let body = {};
-    formData.forEach((val, key) => {
-      body[key] = val;
-    });*/
+  const formSubmit = (target) => {
+    target.appendChild(statusMessage);
+    statusMessage.textContent = loadMessage;
+    const formData = new FormData(target);
+    target.reset();
+    const removeMessage = () => {
+      setTimeout(() => statusMessage.remove(), 5000);
+    };
     postData(formData).then((response) => {
       if (response.status !== 200) {
         throw new Error('Status network not 200');
       }
       statusMessage.textContent = successMessage;
+      removeMessage();
     }).catch(error => {
       statusMessage.textContent = errorMessage;
       console.error(error);
+      removeMessage();
     });
+  };
+  document.body.addEventListener('submit', (event) => {
+    event.preventDefault();
+    formSubmit(event.target);
   });
 };
 
