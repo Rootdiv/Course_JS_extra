@@ -12,6 +12,7 @@ import commands from './modules/commands';
 import validForm from './modules/validForm';
 import contacts from './modules/contacts';
 import sendForm from './modules/sendForm';
+import sliderCarousel from './modules/sliderCarousel';
 
 //Таймер
 countTimer('14 March 2021');
@@ -35,3 +36,5 @@ validForm();
 contacts();
 //send-ajax-form
 sendForm();
+//Слайдер Карусель
+sliderCarousel();
