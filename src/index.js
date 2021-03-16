@@ -3,7 +3,7 @@
 
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
-import toggleModal from './modules/toggleModal';
+import togglePopUp from './modules/togglePopUp';
 import animateScroll from './modules/animateScroll';
 import tabs from './modules/tabs';
 import slider from './modules/slider';
@@ -14,11 +14,11 @@ import contacts from './modules/contacts';
 import sendForm from './modules/sendForm';
 
 //Таймер
-countTimer('14 March 2021');
+window.onload = countTimer('14 March 2022');
 //Меню
 toggleMenu();
 //Модальное окно
-toggleModal();
+togglePopUp();
 //Плавная прокрутка
 animateScroll();
 //Табы

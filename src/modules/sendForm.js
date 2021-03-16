@@ -23,12 +23,20 @@ const sendForm = () => {
     const removeMessage = () => {
       setTimeout(() => statusMessage.remove(), 5000);
     };
+    const closePopUpSend = () => {
+      setTimeout(() => {
+        if (target.matches('#form3')) {
+          document.querySelector('.popup').style.display = 'none';
+        }
+      }, 5500);
+    };
     postData(formData).then((response) => {
       if (response.status !== 200) {
         throw new Error('Status network not 200');
       }
       statusMessage.textContent = successMessage;
       removeMessage();
+      closePopUpSend();
     }).catch(error => {
       statusMessage.textContent = errorMessage;
       console.error(error);
@@ -37,7 +45,9 @@ const sendForm = () => {
   };
   document.body.addEventListener('submit', (event) => {
     event.preventDefault();
-    formSubmit(event.target);
+    if (event.target.querySelector('[placeholder~="E-mail"]').value.trim() !== '') {
+      formSubmit(event.target);
+    }
   });
 };
 

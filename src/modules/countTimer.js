@@ -5,7 +5,7 @@ const countTimer = (deadline) => {
   const timerSeconds = document.getElementById('timer-seconds');
 
   const twoDigits = (num) => {
-    return ('0' + num).slice(-2);
+    return (num < 10) ? '0' + num : num;
   };
 
   const getTimeRemaining = () => {
@@ -40,6 +40,8 @@ const countTimer = (deadline) => {
         updateClock();
       }
     }, 1000);
+  } else if (getTimeRemaining().fullStop) {
+    document.getElementById('timer').style.color = '#FF0000';
   }
 };
 

@@ -1,42 +1,48 @@
 'use strict';
-const toggleModal = () => {
+const togglePopUp = () => {
   //Получаем блок содержащий кнопку вызова модального окна
   const servicePopUpBtn = document.querySelector('.service');
   const popUp = document.querySelector('.popup');
-  popUp.style.display = 'block'; //Получем модально окно и подключаем стили для анимации
-  popUp.style.transform = 'translateX(100%)';
-  let animation, count = 100;
+  const popUpContent = document.querySelector('.popup-content');
+  const width = parseInt(getComputedStyle(popUpContent).width) / 2;
+  const startPos = Math.floor(width);
+  popUpContent.style.transform = `translateX(${100 + startPos}%)`;
+  let animation, count = 100 + startPos;
   const transform = () => {
     animation = requestAnimationFrame(transform);
-    count--;
+    count -= 2;
     if (count >= 0) {
-      popUp.style.transform = `translateX(${count}%)`;
+      popUpContent.style.transform = `translateX(${count}%)`;
     } else {
       cancelAnimationFrame(animation);
     }
   };
+  const closePopUp = () => {
+    count = 100 + startPos;
+    popUp.style.display = 'none';
+    popUpContent.style.transform = `translateX(${100 + startPos}%)`;
+  };
   servicePopUpBtn.addEventListener('click', (event) => {
     if (event.target.matches('.popup-btn')) {
+      popUp.style.display = 'block';
       if (document.body.clientWidth > 768) {
         requestAnimationFrame(transform);
       } else {
-        popUp.style.transform = 'translateX(0)';
+        popUpContent.style.transform = 'translateX(0)';
       }
     }
   });
   popUp.addEventListener('click', (event) => {
     let target = event.target;
     if (target.classList.contains('popup-close')) {
-      count = 100;
-      popUp.style.transform = 'translateX(100%)';
+      closePopUp();
     } else {
       target = target.closest('.popup-content');
       if (!target) {
-        count = 100;
-        popUp.style.transform = 'translateX(100%)';
+        closePopUp();
       }
     }
   });
 };
 
-export default toggleModal;
+export default togglePopUp;

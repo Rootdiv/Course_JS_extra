@@ -1,4 +1,7 @@
 const path = require('path');
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -7,12 +10,15 @@ module.exports = {
     path: path.resolve(__dirname, './dist')
   },
   devServer: {
-    open: true,
+    open: 'google-chrome',
     port: 8080,
     hot: true,
     writeToDisk: true,
   },
   mode: 'development',
+  plugins: [
+    new CleanWebpackPlugin()
+  ],
   module: {
     rules: [{
       test: /\.js$/,

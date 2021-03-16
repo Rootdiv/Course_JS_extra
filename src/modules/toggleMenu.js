@@ -14,9 +14,9 @@ const toggleMenu = () => {
       //Блокируем вызов меню на стрелках слайдера и в футере
       if (!target.closest('.portfolio-content') && !target.closest('footer')) {
         if (target.matches('[href^="#"]')) {
-          handlerMenu();
-        } else if (target && !target.closest('.menu')) {
-          //Закрываем меню при клике мимо или пункта меню
+          handlerMenu(); //Закрытие меню при клике пункте меню
+        } else if (!target.closest('.active-menu') && !target.closest('.menu')) {
+          //Закрываем меню при клике мимо меню
           menu.classList.remove('active-menu');
         }
       }

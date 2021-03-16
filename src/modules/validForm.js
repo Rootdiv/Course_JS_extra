@@ -7,7 +7,8 @@ const validForm = () => {
   };
   const formNameBlur = (event) => {
     const target = event.target;
-    target.value = target.value.split(/\s+/).map(str => str.charAt(0).toUpperCase() + str.slice(1)).join(' ');
+    target.value = target.value.split(/\s+/)
+      .map(str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ');
   };
   const formeEmailInput = (event) => {
     const target = event.target;

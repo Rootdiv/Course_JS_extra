@@ -1,5 +1,5 @@
 {
-  "name": "course_js",
+  "name": "course_js_extra",
   "version": "1.0.0",
   "description": "Курс JavaScript от Glo Academy <div>   Урок &#8470;30<br>   Приём модуль. Webpack. Babel. </div>",
   "main": "index.js",
@@ -9,18 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rootdiv/Course_JS.git"
+    "url": "git+https://github.com/Rootdiv/Course_JS_extra.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Rootdiv/Course_JS/issues"
+    "url": "https://github.com/Rootdiv/Course_JS_extra/issues"
   },
-  "homepage": "https://github.com/Rootdiv/Course_JS#readme",
+  "homepage": "https://github.com/Rootdiv/Course_JS_extra#readme",
   "devDependencies": {
     "@babel/core": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
